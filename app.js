@@ -45,8 +45,13 @@ var deleteItem = function (state, item) {
     console.log(state);
 }
 
-// Get the index number of the item to be deleted
+// Check item function
+var checkItem = function (state, item) {
+    $( ".shopping-item-toggle" ).addClass( "shopping-item-checked" );
+    console.log(state);
+}
 
+// Get the index number of the item to be deleted
 var itemsHTML = state.items.map(function(item, index) {
         return '<li data-index=' + index +'"">' + '<span class="shopping-item">' + item + '</span>' + 
             '<button class="shopping-item-toggle">' + '<span class="button-label">check</span>' + 
@@ -78,3 +83,14 @@ $(document).on('click', ".shopping-item-delete", function () {
 
 // Shopping item toggle
 // Add a class of shopping-item-checked and then render the list
+$(document).on('click',".shopping-item-toggle", function () {
+// Get the item, define the item
+// The attr of the parent is 'data-index'
+    var item = parseInt($(this).parent().attr('data-index'));
+// Strike through the item you've identified
+    checkItem(state, item);
+//      $(item, state).addClass("shopping-item-checked");
+//      $("#shopping-list-entry").wrap("<strike>");
+// Re-render the list now that you've checked an item
+    renderList(state, $('.shopping-list')); 
+});
