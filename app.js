@@ -9,57 +9,72 @@ var addItem = function(state, item) {
     state.items.push(item);
     console.log(state);
 };
+
 // Get items
 var getItem = function (state, itemIndex) {
     state.itemIndex.return(item);
 }
+
+// RENDER FUNCTIONS
+var renderList = function(state, element) {
+    // Below is the new variable, "itemsHTML"
+    var itemsHTML = state.items.map(function(item, index) {
+        return '<li data-index="'+ index +'">' + '<span class="shopping-item">' + item + '</span>' + 
+        '<button class="shopping-item-toggle">' + '<span class="button-label">check</span>' + 
+        '</button>' + '&nbsp;' + '<button class="shopping-item-delete">' + 
+        '<span class="button-label">delete</span>' + '</button>' + '</li>';
+    })
+    element.html(itemsHTML);
+}
+
 // Remove item function
 var deleteItem = function(state, item) {
     state.items.splice(item);
     console.log(state);
 }
+
 // Update item function
 var updateItem = function (state, item) {
     state.items.update(item);
     console.log(state);
 }
 
-// RENDER FUNCTIONS
-var renderList = function(state, element) {
-    var itemsHTML = state.items.map(function(item) {
-        return '<li>' + '<span class="shopping-item">' + item + '</span>' + '<button class="shopping-item-toggle">' + '<span class="button-label">check</span>' + '</button>' + '&nbsp;' + '<button class="shopping-item-delete">' + '<span class="button-label">delete</span>' + '</button>' + '</li>';
-    });
-    console.log(itemsHTML);
+// Delete item function
+var deleteItem = function (state, item) {
+    state.items.splice(item, 1);
     console.log(state);
-    element.html(itemsHTML);
-};
+}
+
+// Get the index number of the item to be deleted
+
+var itemsHTML = state.items.map(function(item, index) {
+        return '<li data-index=' + index +'"">' + '<span class="shopping-item">' + item + '</span>' + 
+            '<button class="shopping-item-toggle">' + '<span class="button-label">check</span>' + 
+            '</button>' + '&nbsp;' + '<button class="shopping-item-delete">' + 
+            '<span class="button-label">delete</span>' + '</button>' + '</li>';
+    });
 
 // EVENT LISTENERS
 // Add item listener
 $('#js-shopping-list-form').submit(function(event) {
     event.preventDefault();
-    addItem(state, $('#shopping-list-entry').val());
+    addItem(state, $('#shopping-list-entry').val()); // Pass this to the addItem... 
+    // ...with the state
+    // Clear form after each entry
+    $('#shopping-list-entry').val('');
     renderList(state, $('.shopping-list')); 
 });
-// If item is checked listener
-$('#js-shopping-list-form').submit(function(event) {
-    event.preventDefault();
-    addItem(state, $('#shopping-list-entry').val());
-    if ('.shopping-item__checked'.checkedOff) {
-    element.find('.js-shopping-item').addClass('shopping-item__checked');
-  }
-  // Delete item listener
- /*   else {
-    event.preventDefault();
-    deleteItem(state, $('shopping-item-toggle').val());
-}
-    renderList(state, $('.shopping-list')); 
-*/    
-// Delete item listener
-/*$('#js-shopping-list-form').splice(function (event) {
-    event.preventDefault();
-    deleteItem(state, $('#shopping-list-entry').val());
 
-    })
-    renderList(state, $('.shopping-list')); */
+// Delete listener
+$(document).on('click', ".shopping-item-delete", function () {
+// Get the item, define the item
+// The attr of the parent is 'data-index'
+    var item = parseInt($(this).parent().attr('data-index'));
+// Delete the item you've identified
+    deleteItem(state, item);
+// Re-render the list now that you've deleted an item
+    renderList(state, $('.shopping-list')); 
 });
+
+// Shopping item toggle
+// Add a class of shopping-item-checked and then render the list
