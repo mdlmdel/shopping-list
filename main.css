@@ -4,6 +4,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  background-color: #c2f0c2;
 }
 
 button, input[type="text"] {
@@ -21,6 +22,10 @@ button:hover {
 .container {
   max-width: 600px;
   margin: 0 auto;
+  margin-top: 30px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 4px;
 }
 
 .shopping-list {

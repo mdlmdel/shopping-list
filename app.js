@@ -32,8 +32,8 @@ var renderList = function(state, element) {
         } else {
             html += '<span class="shopping-item">'; 
         }
-        html += item.name + '</span><button class="shopping-item-toggle">' + '<span class="button-label">check</span>' + 
-            '</button>' + '&nbsp;' + '<button class="shopping-item-delete">' + 
+        html += item.name + '</span><button class="shopping-item-toggle ui blue button">' + '<span class="button-label">check</span>' + 
+            '</button>' + '&nbsp;' + '<button class="shopping-item-delete ui grey button">' + 
             '<span class="button-label">delete</span>' + '</button>' + '</li>';
         return html;    
     });
