@@ -26,6 +26,7 @@ var checkItem = function(state, item) {
 var renderList = function(state, element) {
     var itemsHTML = state.items.map(function(item, index) {
         var html = "";
+        $('.ui button');
         html += '<li data-index="' + index +'">'
         if (item.checked) {
             html += '<span class="shopping-item shopping-item-checked">'; 
